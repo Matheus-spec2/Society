@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body#paglogin{
-    background-image: url(imagens/society.jpg);
+    background-image: url(imagens/Society.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -24,11 +24,11 @@ div#login-container {
 }
 table{
     border-collapse: collapse;
-    min-width: 1200px;
+    width: 500px;
 }
 td, tr{
     border: 1px solid black;
-    padding:10px
+    padding: 20px;
 }
 .pendente{
     color: white;
@@ -37,4 +37,7 @@ td, tr{
 .pago{
     color: white;
     background-color: green;
+}
+div#container-table{
+    overflow-x: auto;
 }
