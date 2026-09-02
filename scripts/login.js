@@ -1,6 +1,6 @@
 const formulario = document.querySelector("#form-login");
 
-formulario.addEventListener("submit", function(event) {
+formulario.addEventListener("submit", async function(event) {
 
     event.preventDefault();
 
@@ -10,14 +10,26 @@ formulario.addEventListener("submit", function(event) {
     const mensagem = document.querySelector("#mensagem");
 
 
-    if (usuario === "admin" && senha === "1234") {
+    // Faz login no Supabase
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: usuario,
+        password: senha
+    });
 
-        window.location.href = "painel.html";
 
-    } else {
+    if (error) {
+
+        console.error("Erro no login:", error);
 
         mensagem.textContent = "Usuário ou senha incorretos";
 
+        return;
     }
+
+
+    console.log("Login realizado:", data.user);
+
+    // Login deu certo
+    window.location.href = "painel.html";
 
 });
