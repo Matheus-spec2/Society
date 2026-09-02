@@ -1,3 +1,18 @@
+async function verificarLogin() {
+
+    const { data, error } = await supabaseClient.auth.getUser();
+
+    if (error || !data.user) {
+
+        window.location.href = "index.html";
+
+        return false;
+    }
+
+    console.log("Usuário logado:", data.user.email);
+
+    return true;
+}
 
 const jogadores = [
     "Fernando",
@@ -238,8 +253,18 @@ function configurarEventos() {
 // ==========================================
 // INICIAR
 // ==========================================
+async function iniciar() {
 
-criarTabela();
+    const logado = await verificarLogin();
 
-carregarPagamentos();
+    if (!logado) {
+        return;
+    }
 
+    criarTabela();
+
+    await carregarPagamentos();
+}
+
+iniciar();
+    
