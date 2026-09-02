@@ -28,7 +28,8 @@ const jogadores = [
     "Lucas",
     "Thiago",
     "Robson",
-    "Miguel"
+    "Miguel",
+    "Alef"
 ];
 
 const ano = 2026;
