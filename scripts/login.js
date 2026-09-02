@@ -1,21 +1,22 @@
 const formulario = document.querySelector("#form-login");
 
-formulario.addEventListener("submit", function(event){
+formulario.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
-    let usuario = document.querySelector("#usuario").value;
-    let senha = document.querySelector("#senha").value;
+    const usuario = document.querySelector("#usuario").value.trim();
+    const senha = document.querySelector("#senha").value;
+
+    const mensagem = document.querySelector("#mensagem");
 
 
-    if(usuario === "admin" && senha === "1234"){
+    if (usuario === "admin" && senha === "1234") {
 
         window.location.href = "painel.html";
 
     } else {
 
-        document.querySelector("#mensagem").innerHTML =
-        "Usuario ou senha incorretos";
+        mensagem.textContent = "Usuário ou senha incorretos";
 
     }
 

@@ -1,43 +1,200 @@
 @charset "UTF-8";
-body#paglogin{
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+body#paglogin {
+
+    min-height: 100vh;
+
     background-image: url(imagens/Society.png);
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
-h1{
+
+
+body#paglogin h1 {
+
     color: white;
     text-align: center;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    font-family:
+        'Gill Sans',
+        'Gill Sans MT',
+        Calibri,
+        'Trebuchet MS',
+        sans-serif;
+
     background-color: rgba(0, 0, 0, 0.225);
+
+    padding: 15px;
 }
-div#login-container {
+
+
+#login-container {
+
     color: white;
-    font-weight: bolder;
-    text-shadow: 1px 0px 0px black;
+
+    font-weight: bold;
+
+    text-shadow: 1px 0 0 black;
+
     background-color: rgba(0, 0, 0, 0.425);
+
     width: 300px;
+
     margin: 100px auto;
+
     text-align: center;
-    padding: 10px;
+
+    padding: 20px;
+
     border-radius: 10px;
 }
-table{
-    border-collapse: collapse;
-    width: 500px;
+
+
+#login-container input {
+
+    width: 100%;
+
+    padding: 10px;
+
+    margin-top: 5px;
+
+    border: none;
+
+    border-radius: 5px;
 }
-td, tr{
-    border: 1px solid black;
+
+
+#login-container button {
+
+    width: 100%;
+
+    padding: 10px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    background-color: #198754;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+#login-container button:hover {
+
+    background-color: #146c43;
+}
+
+
+#mensagem {
+
+    color: #ff5555;
+}
+
+
+/* =========================
+   TABELA
+========================= */
+
+#container-table {
+
+    width: 100%;
+
+    overflow-x: auto;
+
     padding: 20px;
 }
-.pendente{
-    color: white;
-    background-color: red;
+
+
+table {
+
+    border-collapse: collapse;
+
+    min-width: 1200px;
+
+    margin: auto;
+
+    background-color: white;
 }
-.pago{
-    color: white;
-    background-color: green;
+
+
+caption {
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    padding: 15px;
 }
-div#container-table{
-    overflow-x: auto;
+
+
+th {
+
+    background-color: #222;
+
+    color: white;
+
+    padding: 12px;
+
+    border: 1px solid #555;
+
+    white-space: nowrap;
+}
+
+
+td {
+
+    border: 1px solid black;
+
+    padding: 12px;
+
+    text-align: center;
+
+    min-width: 80px;
+}
+
+
+.nome-jogador {
+
+    text-align: left;
+
+    font-weight: bold;
+
+    min-width: 150px;
+
+    background-color: #eee;
+}
+
+
+.pagamento {
+
+    cursor: text;
+
+    font-weight: bold;
+}
+
+
+.pagamento:focus {
+
+    outline: 3px solid #007bff;
 }
