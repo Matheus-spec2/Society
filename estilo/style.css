@@ -1,200 +1,547 @@
 @charset "UTF-8";
 
-* {
-    box-sizing: border-box;
+/* =========================================================
+CONFIGURAÇÕES GERAIS
+========================================================= */
+
+{
+box-sizing: border-box;
+}
+
+html,
+body {
+margin: 0;
+padding: 0;
+min-height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+font-family: Arial, Helvetica, sans-serif;
+background-color: #0b1f14;
+color: #222;
 }
 
-
-/* =========================
-   LOGIN
-========================= */
+/* =========================================================
+LOGIN
+========================================================= */
 
 body#paglogin {
+min-height: 100vh;
 
-    min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
 
-    background-image: url(imagens/Society.png);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+background:
+    linear-gradient(
+        rgba(0, 35, 20, 0.55),
+        rgba(0, 0, 0, 0.75)
+    ),
+    url(imagens/Society.png);
+
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+
+
 }
 
+/* TÍTULO DO LOGIN */
 
 body#paglogin h1 {
+width: 100%;
 
-    color: white;
-    text-align: center;
+margin: 0;
+padding: 22px 15px;
 
-    font-family:
-        'Gill Sans',
-        'Gill Sans MT',
-        Calibri,
-        'Trebuchet MS',
-        sans-serif;
+text-align: center;
 
-    background-color: rgba(0, 0, 0, 0.225);
+color: white;
 
-    padding: 15px;
+font-family:
+    'Gill Sans',
+    'Gill Sans MT',
+    Calibri,
+    'Trebuchet MS',
+    sans-serif;
+
+font-size: 32px;
+letter-spacing: 2px;
+text-transform: uppercase;
+
+background: rgba(0, 0, 0, 0.45);
+
+border-bottom: 3px solid #20c46b;
+
+text-shadow:
+    2px 2px 4px #000;
+
+
 }
 
+/* CAIXA DE LOGIN */
 
 #login-container {
+width: min(360px, calc(100% - 30px));
 
-    color: white;
+margin: 90px auto 30px;
 
-    font-weight: bold;
+padding: 30px;
 
-    text-shadow: 1px 0 0 black;
+color: white;
 
-    background-color: rgba(0, 0, 0, 0.425);
+background:
+    linear-gradient(
+        145deg,
+        rgba(0, 40, 23, 0.92),
+        rgba(0, 0, 0, 0.88)
+    );
 
-    width: 300px;
+border: 1px solid rgba(32, 196, 107, 0.5);
 
-    margin: 100px auto;
+border-radius: 16px;
 
-    text-align: center;
+box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
-    padding: 20px;
+backdrop-filter: blur(5px);
 
-    border-radius: 10px;
+
 }
 
+/* TÍTULO/FORMULÁRIO */
 
-#login-container input {
-
-    width: 100%;
-
-    padding: 10px;
-
-    margin-top: 5px;
-
-    border: none;
-
-    border-radius: 5px;
+#login-container form {
+width: 100%;
 }
 
+#login-container label {
+    display: block;
 
-#login-container button {
-
-    width: 100%;
-
-    padding: 10px;
-
-    border: none;
-
-    border-radius: 5px;
-
-    background-color: #198754;
-
-    color: white;
-
-    font-weight: bold;
-
-    cursor: pointer;
-}
-
-
-#login-container button:hover {
-
-    background-color: #146c43;
-}
-
-
-#mensagem {
-
-    color: #ff5555;
-}
-
-
-/* =========================
-   TABELA
-========================= */
-
-#container-table {
-
-    width: 100%;
-
-    overflow-x: auto;
-
-    padding: 20px;
-}
-
-
-table {
-
-    border-collapse: collapse;
-
-    min-width: 1200px;
-
-    margin: auto;
-
-    background-color: white;
-}
-
-
-caption {
-
-    font-size: 24px;
-
-    font-weight: bold;
-
-    padding: 15px;
-}
-
-
-th {
-
-    background-color: #222;
-
-    color: white;
-
-    padding: 12px;
-
-    border: 1px solid #555;
-
-    white-space: nowrap;
-}
-
-
-td {
-
-    border: 1px solid black;
-
-    padding: 12px;
-
-    text-align: center;
-
-    min-width: 80px;
-}
-
-
-.nome-jogador {
+    margin-top: 12px;
+    margin-bottom: 6px;
+    padding-left: 2px;
 
     text-align: left;
 
-    font-weight: bold;
+    font-size: 14px;
+    color: #e8fff1;
 
-    min-width: 150px;
-
-    background-color: #eee;
+    text-shadow: none;
 }
 
+
+
+/* CAMPOS */
+
+#login-container input {
+width: 100%;
+
+padding: 13px 14px;
+
+margin-bottom: 8px;
+
+border: 2px solid #315b45;
+border-radius: 8px;
+
+outline: none;
+
+background-color: rgba(255, 255, 255, 0.95);
+
+color: #111;
+
+font-size: 16px;
+
+transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+
+
+}
+
+#login-container input:focus {
+border-color: #20c46b;
+
+box-shadow:
+    0 0 0 3px rgba(32, 196, 107, 0.2);
+
+
+}
+
+/* BOTÃO */
+
+#login-container button {
+width: 100%;
+
+margin-top: 18px;
+
+padding: 13px;
+
+border: none;
+border-radius: 8px;
+
+background:
+    linear-gradient(
+        135deg,
+        #20c46b,
+        #118344
+    );
+
+color: white;
+
+font-size: 16px;
+font-weight: bold;
+
+letter-spacing: 1px;
+
+cursor: pointer;
+
+box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.35);
+
+transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+
+
+}
+
+#login-container button:hover {
+background:
+linear-gradient(
+135deg,
+#2bdd7a,
+#159950
+);
+
+transform: translateY(-2px);
+
+box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.45);
+
+
+}
+
+#login-container button:active {
+transform: translateY(0);
+}
+
+/* MENSAGEM DE ERRO */
+
+#mensagem {
+min-height: 20px;
+
+margin-top: 18px;
+
+color: #ff6868;
+
+font-size: 14px;
+
+text-align: center;
+
+text-shadow: none;
+
+
+}
+
+/* =========================================================
+PAINEL DE PAGAMENTOS
+========================================================= */
+
+body:not(#paglogin) {
+min-height: 100vh;
+
+background:
+    linear-gradient(
+        rgba(4, 25, 15, 0.92),
+        rgba(2, 12, 8, 0.96)
+    );
+
+
+}
+
+/* ÁREA DA TABELA */
+
+#container-table {
+width: 100%;
+
+padding: 30px;
+
+overflow-x: auto;
+
+
+}
+
+/* =========================================================
+TABELA
+========================================================= */
+
+table {
+border-collapse: separate;
+border-spacing: 0;
+
+min-width: 1250px;
+
+margin: 0 auto;
+
+overflow: hidden;
+
+background-color: #f7f7f7;
+
+border: 1px solid #315b45;
+
+border-radius: 12px;
+
+box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.5);
+
+
+}
+
+/* TÍTULO DA TABELA */
+
+caption {
+caption-side: top;
+
+padding: 18px;
+
+margin-bottom: 12px;
+
+color: white;
+
+background:
+    linear-gradient(
+        135deg,
+        #0b5d32,
+        #083b22
+    );
+
+border: 1px solid #315b45;
+border-radius: 10px;
+
+font-size: 25px;
+font-weight: bold;
+
+letter-spacing: 1px;
+
+text-transform: uppercase;
+
+box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.35);
+
+
+}
+
+/* CABEÇALHO */
+
+th {
+padding: 13px 10px;
+
+background:
+    linear-gradient(
+        #252525,
+        #111
+    );
+
+color: white;
+
+border-right: 1px solid #444;
+border-bottom: 3px solid #20c46b;
+
+font-size: 14px;
+
+white-space: nowrap;
+
+
+}
+
+th:first-child {
+border-top-left-radius: 10px;
+}
+
+th:last-child {
+border-right: none;
+
+border-top-right-radius: 10px;
+
+
+}
+
+/* CÉLULAS */
+
+td {
+min-width: 82px;
+
+padding: 11px 8px;
+
+text-align: center;
+
+background-color: #fafafa;
+
+border-right: 1px solid #ccc;
+border-bottom: 1px solid #ccc;
+
+font-size: 14px;
+
+
+}
+
+td:last-child {
+border-right: none;
+}
+
+/* LINHAS ALTERNADAS */
+
+tbody tr:nth-child(even) td {
+background-color: #eeeeee;
+}
+
+/* EFEITO AO PASSAR O MOUSE */
+
+tbody tr:hover td {
+background-color: #dff5e8;
+}
+
+/* =========================================================
+NOME DO JOGADOR
+========================================================= */
+
+.nome-jogador {
+min-width: 160px;
+
+padding-left: 15px;
+
+text-align: left;
+
+color: #123c26;
+
+background-color: #d9e8df !important;
+
+font-weight: bold;
+
+white-space: nowrap;
+
+
+}
+
+/* =========================================================
+CÉLULAS DE PAGAMENTO
+========================================================= */
 
 .pagamento {
+cursor: text;
 
-    cursor: text;
+font-weight: bold;
 
-    font-weight: bold;
+transition:
+    background-color 0.2s,
+    transform 0.1s;
+
+
+}
+
+/* CÉLULA SENDO EDITADA */
+
+.pagamento:focus {
+outline: 3px solid #20c46b;
+
+outline-offset: -3px;
+
+background-color: white !important;
+
+color: #111 !important;
+
+
+}
+
+/* =========================================================
+SCROLL DA TABELA
+========================================================= */
+
+#container-table::-webkit-scrollbar {
+height: 10px;
+}
+
+#container-table::-webkit-scrollbar-track {
+background-color: #07150d;
+
+border-radius: 10px;
+
+
+}
+
+#container-table::-webkit-scrollbar-thumb {
+background-color: #168a49;
+
+border-radius: 10px;
+
+
+}
+
+#container-table::-webkit-scrollbar-thumb:hover {
+background-color: #20c46b;
+}
+
+/* =========================================================
+RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 600px) {
+
+body#paglogin h1 {
+    font-size: 25px;
+
+    padding: 18px 10px;
+}
+
+#login-container {
+    margin-top: 60px;
+
+    padding: 25px 20px;
+}
+
+#container-table {
+    padding: 15px 8px;
+}
+
+caption {
+    font-size: 19px;
+
+    padding: 14px;
+}
+
+th {
+    padding: 10px 7px;
+
+    font-size: 12px;
+}
+
+td {
+    min-width: 70px;
+
+    padding: 10px 6px;
+
+    font-size: 13px;
+}
+
+.nome-jogador {
+    min-width: 135px;
 }
 
 
-.pagamento:focus {
+}
 
-    outline: 3px solid #007bff;
+/* =========================================================
+SELEÇÃO DE TEXTO
+========================================================= */
+
+::selection {
+background-color: #20c46b;
+
+color: white;
+
+
 }

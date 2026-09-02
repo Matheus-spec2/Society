@@ -1,51 +1,57 @@
 async function verificarLogin() {
 
-    const { data, error } = await supabaseClient.auth.getUser();
+const { data, error } = await supabaseClient.auth.getUser();
 
-    if (error || !data.user) {
+if (error || !data.user) {
 
-        window.location.href = "index.html";
+    window.location.href = "index.html";
 
-        return false;
-    }
-
-    console.log("Usuário logado:", data.user.email);
-
-    return true;
+    return false;
 }
 
+console.log("Usuário logado:", data.user.email);
+
+return true;
+
+
+}
+
+// ==========================================
+// JOGADORES
+// ==========================================
+
 const jogadores = [
-    "Fernando",
-    "Demir",
-    "Daniel",
-    "Raimundinho",
-    "Denner",
-    "Ronaldinho",
-    "Jonathan",
-    "Emerson",
-    "João Lucas",
-    "João Gutão",
-    "Mané",
-    "Roberto",
-    "Marcio",
-    "Cobrinha",
-    "Rodolfo",
-    "Adilson",
-    "Gutão",
-    "Thiaguinho",
-    "Deivid",
-    "Branco",
-    "Alan",
-    "Dário",
-    "Rato",
-    "Teo",
-    "Sapão",
-    "Bebe",
-    "Lucas",
-    "Thiago",
-    "Robson",
-    "Miguel",
-    "Alef"
+"Fernando",
+"Demir",
+"Daniel",
+"Raimundinho",
+"Denner",
+"Ronaldinho",
+"Jonathan",
+"Emerson",
+"João Lucas",
+"João Gutão",
+"Mané",
+"Roberto",
+"Marcio",
+"Cobrinha",
+"Rodolfo",
+"Adilson",
+"Gutão",
+"Thiaguinho",
+"Deivid",
+"Branco",
+"Alan",
+"Dário",
+"Rato",
+"Teo",
+"Sapão",
+"Bebe",
+"Lucas",
+"Thiago",
+"Robson",
+"Miguel",
+"Alef"
 ];
 
 const ano = 2026;
@@ -56,93 +62,43 @@ console.log("jogadores.js carregou");
 console.log("tbody:", tbody);
 console.log("supabaseClient:", supabaseClient);
 
-
 // ==========================================
-// CRIAR A TABELA
+// FORMATAR MOEDA
 // ==========================================
 
-function criarTabela() {
+function formatarMoeda(valor) {
 
-    jogadores.forEach(nome => {
-
-        const tr = document.createElement("tr");
-
-        // Nome
-        const tdNome = document.createElement("td");
-
-        tdNome.textContent = nome;
-
-        tdNome.classList.add("nome-jogador");
-
-        tr.appendChild(tdNome);
+return Number(valor).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+});
 
 
-        // 12 meses
-        for (let mes = 1; mes <= 12; mes++) {
-
-            const td = document.createElement("td");
-
-            td.classList.add("pagamento");
-
-            td.contentEditable = true;
-
-            td.textContent = "0";
-
-            td.dataset.jogador = nome;
-            td.dataset.mes = mes;
-
-            atualizarCor(td);
-
-            tr.appendChild(td);
-        }
-
-        tbody.appendChild(tr);
-    });
-
-    console.log("Tabela criada com sucesso!");
-
-    configurarEventos();
 }
 
-
 // ==========================================
-// CARREGAR PAGAMENTOS
+// OBTER VALOR DA CÉLULA
 // ==========================================
 
-async function carregarPagamentos() {
+function obterValor(celula) {
 
-    console.log("Buscando pagamentos...");
+let texto = celula.textContent.trim();
 
-    const { data, error } = await supabaseClient
-        .from("pagamentos")
-        .select("*")
-        .eq("ano", ano);
+// Remove R$
+texto = texto.replace("R$", "");
 
-    if (error) {
+// Remove pontos usados como separador de milhar
+texto = texto.replace(/\./g, "");
 
-        console.error("ERRO DO SUPABASE:", error);
+// Troca vírgula decimal por ponto
+texto = texto.replace(",", ".");
 
-        return;
-    }
+const valor = Number(texto);
 
-    console.log("Pagamentos encontrados:", data);
+return isNaN(valor) ? 0 : valor;
 
 
-    data.forEach(pagamento => {
-
-        const celula = document.querySelector(
-            `.pagamento[data-jogador="${pagamento.jogador}"][data-mes="${pagamento.mes}"]`
-        );
-
-        if (celula) {
-
-            celula.textContent = pagamento.valor;
-
-            atualizarCor(celula);
-        }
-    });
 }
-
 
 // ==========================================
 // CORES
@@ -150,22 +106,117 @@ async function carregarPagamentos() {
 
 function atualizarCor(celula) {
 
-    const valor = Number(
-        celula.textContent.replace(",", ".")
-    );
+const valor = obterValor(celula);
 
-    if (valor > 0) {
+if (valor > 0) {
 
-        celula.style.backgroundColor = "green";
-        celula.style.color = "white";
+    celula.style.backgroundColor = "green";
+    celula.style.color = "white";
 
-    } else {
+} else {
 
-        celula.style.backgroundColor = "red";
-        celula.style.color = "white";
-    }
+    celula.style.backgroundColor = "red";
+    celula.style.color = "white";
 }
 
+
+}
+
+// ==========================================
+// CRIAR TABELA
+// ==========================================
+
+function criarTabela() {
+
+jogadores.forEach(nome => {
+
+    const tr = document.createElement("tr");
+
+
+    // ------------------------------
+    // NOME
+    // ------------------------------
+
+    const tdNome = document.createElement("td");
+
+    tdNome.textContent = nome;
+
+    tdNome.classList.add("nome-jogador");
+
+    tr.appendChild(tdNome);
+
+
+    // ------------------------------
+    // 12 MESES
+    // ------------------------------
+
+    for (let mes = 1; mes <= 12; mes++) {
+
+        const td = document.createElement("td");
+
+        td.classList.add("pagamento");
+
+        td.contentEditable = true;
+
+        td.textContent = formatarMoeda(0);
+
+        td.dataset.jogador = nome;
+        td.dataset.mes = mes;
+
+        atualizarCor(td);
+
+        tr.appendChild(td);
+    }
+
+    tbody.appendChild(tr);
+});
+
+console.log("Tabela criada com sucesso!");
+
+configurarEventos();
+
+
+}
+
+// ==========================================
+// CARREGAR PAGAMENTOS
+// ==========================================
+
+async function carregarPagamentos() {
+
+console.log("Buscando pagamentos...");
+
+const { data, error } = await supabaseClient
+    .from("pagamentos")
+    .select("*")
+    .eq("ano", ano);
+
+if (error) {
+
+    console.error("ERRO DO SUPABASE:", error);
+
+    return;
+}
+
+console.log("Pagamentos encontrados:", data);
+
+
+data.forEach(pagamento => {
+
+    const celula = document.querySelector(
+        `.pagamento[data-jogador="${pagamento.jogador}"][data-mes="${pagamento.mes}"]`
+    );
+
+    if (celula) {
+
+        celula.textContent = formatarMoeda(pagamento.valor);
+
+        atualizarCor(celula);
+    }
+});
+
+
+}
 
 // ==========================================
 // EVENTOS
@@ -173,98 +224,140 @@ function atualizarCor(celula) {
 
 function configurarEventos() {
 
-    const pagamentos = document.querySelectorAll(".pagamento");
+const pagamentos = document.querySelectorAll(".pagamento");
 
-    pagamentos.forEach(celula => {
-
-        celula.addEventListener("keydown", function(event) {
-
-            if (event.key === "Enter") {
-
-                event.preventDefault();
-
-                celula.blur();
-            }
-        });
+pagamentos.forEach(celula => {
 
 
-        celula.addEventListener("blur", async function() {
+    // ------------------------------
+    // ENTER
+    // ------------------------------
 
-            let valor = Number(
-                celula.textContent.replace(",", ".")
+    celula.addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+
+            event.preventDefault();
+
+            celula.blur();
+        }
+    });
+
+
+    // ------------------------------
+    // AO EDITAR
+    // ------------------------------
+
+    celula.addEventListener("focus", function() {
+
+        // Mostra somente o número enquanto edita
+        const valor = obterValor(celula);
+
+        celula.textContent = valor > 0 ? valor : "";
+
+    });
+
+
+    // ------------------------------
+    // AO SAIR DA CÉLULA
+    // ------------------------------
+
+    celula.addEventListener("blur", async function() {
+
+        let valor = Number(
+            celula.textContent
+                .replace("R$", "")
+                .replace(/\./g, "")
+                .replace(",", ".")
+                .trim()
+        );
+
+
+        // Valor inválido
+        if (isNaN(valor) || valor < 0) {
+
+            valor = 0;
+        }
+
+
+        // Mostra formatado
+        celula.textContent = formatarMoeda(valor);
+
+        atualizarCor(celula);
+
+
+        const jogador = celula.dataset.jogador;
+
+        const mes = Number(
+            celula.dataset.mes
+        );
+
+
+        console.log(
+            "Salvando:",
+            jogador,
+            mes,
+            valor
+        );
+
+
+        // ------------------------------
+        // SALVAR NO SUPABASE
+        // ------------------------------
+
+        const { error } = await supabaseClient
+            .from("pagamentos")
+            .upsert(
+                {
+                    jogador: jogador,
+                    mes: mes,
+                    valor: valor,
+                    ano: ano
+                },
+                {
+                    onConflict: "jogador,mes,ano"
+                }
             );
 
-            if (isNaN(valor) || valor < 0) {
 
-                valor = 0;
-            }
+        if (error) {
 
-            celula.textContent = valor;
+            console.error(
+                "ERRO AO SALVAR:",
+                error
+            );
 
-            atualizarCor(celula);
+            alert("Erro ao salvar pagamento.");
 
-
-            const jogador = celula.dataset.jogador;
-            const mes = Number(celula.dataset.mes);
-
+        } else {
 
             console.log(
-                "Salvando:",
-                jogador,
-                mes,
-                valor
+                "Pagamento salvo!"
             );
-
-
-            const { error } = await supabaseClient
-                .from("pagamentos")
-                .upsert(
-                    {
-                        jogador: jogador,
-                        mes: mes,
-                        valor: valor,
-                        ano: ano
-                    },
-                    {
-                        onConflict: "jogador,mes,ano"
-                    }
-                );
-
-
-            if (error) {
-
-                console.error(
-                    "ERRO AO SALVAR:",
-                    error
-                );
-
-                alert("Erro ao salvar pagamento.");
-
-            } else {
-
-                console.log("Pagamento salvo!");
-
-            }
-        });
+        }
     });
-}
+});
 
+
+}
 
 // ==========================================
 // INICIAR
 // ==========================================
+
 async function iniciar() {
 
-    const logado = await verificarLogin();
+const logado = await verificarLogin();
 
-    if (!logado) {
-        return;
-    }
+if (!logado) {
+    return;
+}
 
-    criarTabela();
+criarTabela();
 
-    await carregarPagamentos();
+await carregarPagamentos();
+
+
 }
 
 iniciar();
-    
