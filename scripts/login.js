@@ -33,4 +33,3 @@ formulario.addEventListener("submit", async function(event) {
     window.location.href = "painel.html";
 
 }); 
-
