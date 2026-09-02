@@ -32,4 +32,5 @@ formulario.addEventListener("submit", async function(event) {
     // Login deu certo
     window.location.href = "painel.html";
 
-}); // 
+}); 
+

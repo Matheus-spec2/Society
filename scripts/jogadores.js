@@ -1,3 +1,4 @@
+
 const jogadores = [
     "Fernando",
     "Demir",
@@ -241,3 +242,4 @@ function configurarEventos() {
 criarTabela();
 
 carregarPagamentos();
+
